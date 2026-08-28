@@ -1,0 +1,30 @@
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+
+        directions = [[0, 1], [0,-1], [1, 0], [-1,0]]
+        ROWS, COLS = len(grid), len(grid[0])
+        max_area =0
+
+        def dfs(r,c):
+            total = 0
+            if (r <0 or c<0 or r >= ROWS or c >= COLS or grid[r][c]== 0):
+                return 0
+            grid[r][c] =0
+            
+            for dr, dc in directions:
+                total += 1+ dfs(r + dr, c + dc)
+            
+            return total
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] ==1:
+                    
+                    current = dfs(r,c)
+                    max_area = max(current, max_area)
+        
+                    
+        return max_area//4
+            
+
+        
